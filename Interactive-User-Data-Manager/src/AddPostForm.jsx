@@ -33,8 +33,10 @@ const AddPostForm = ({ setMode, userId }) => {
                 placeholder="Enter todo body"
                 required
             /><br /> <br />
-            <button type="submit">Add</button>
-            <button onClick={() => setMode('list')}>Cancel</button>
+            <div className='buttonsContainer'>
+                <button type="submit">Add</button>
+                <button onClick={() => setMode('list')}>Cancel</button>
+            </div>
         </form>
     );
 };

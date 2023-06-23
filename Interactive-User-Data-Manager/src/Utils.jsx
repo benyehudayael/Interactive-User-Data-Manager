@@ -79,6 +79,20 @@ const Utils = () => {
     }
 
     const addUser = (name, email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const isEmailValid = emailRegex.test(email);
+
+        if (!isEmailValid) {
+            console.log('Invalid email format');
+            return;
+        }
+        const isEmailExists = users.some((user) => user.email === email);
+
+        if (isEmailExists) {
+            console.log('Email already exists');
+            alert('Email already exists')
+            return;
+        }
         const newUser = {
             id: users.length + 1,
             name: name,

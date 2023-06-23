@@ -2,21 +2,28 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import Utils from './Utils'
 
-const User = ({ user, hasUncompletedTasks, setIsSelectedUserId, setSelectedUserId, selectedUserId, setShowAddUserForm }) => {
+const User = ({ user, uncompletedTasksUsers, setIsSelectedUserId, setSelectedUserId, selectedUserId, setShowAddUserForm }) => {
 
     const { updateUser, deleteUser } = Utils();
     const [showOtherData, setShowOtherData] = useState(false);
-    const [updatedUser, setUpdatedUser] = useState(Object.assign({}, user));
+    const [updatedUser, setUpdatedUser] = useState(user);
     const [orangeBg, setOrangeBg] = useState(false);
 
     const [userStyle, setUserStyle] = useState({
-        border: hasUncompletedTasks ? '2px solid #ff000080' : '2px solid #00400e80',
+        border: uncompletedTasksUsers.includes(user.id) ? '2px solid #ff000080' : '2px solid #00400e80',
         padding: '10px',
         margin: '10px',
         width: '370px',
         boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px',
         backgroundColor: orangeBg && selectedUserId == user.id ? '#fee4cb' : 'inherit',
     });
+
+    useEffect(() => {
+        setUserStyle((prevUserStyle) => ({
+            ...prevUserStyle,
+            border: uncompletedTasksUsers.includes(user.id) ? '2px solid #ff000080' : '2px solid #00400e80',
+        }));
+    }, [uncompletedTasksUsers]);
 
     useEffect(() => {
         setUserStyle((prevUserStyle) => ({
@@ -36,8 +43,8 @@ const User = ({ user, hasUncompletedTasks, setIsSelectedUserId, setSelectedUserI
             },
         }))
     }
-    const handleMouseOver = () => { setShowOtherData(true) }
-    const closeMoreData = () => { setShowOtherData(false) }
+    const handleMouseOver = () => setShowOtherData(true);
+    const closeMoreData = () => setShowOtherData(false);
     const handleUpdateUser = async () => {
         const { name, email, address } = updatedUser;
         const updatedData = {};
@@ -77,7 +84,7 @@ const User = ({ user, hasUncompletedTasks, setIsSelectedUserId, setSelectedUserI
 
     return (
         <div className='user-box' style={userStyle}>
-            <p onClick={handleSelectUser}>ID: {user.id}</p>
+            <p style={{ cursor: 'pointer' }} onClick={handleSelectUser}>ID: {user.id}</p>
             <p>Name: </p> <input type="text" name='name' value={updatedUser.name} onChange={handleInputChange} readOnly={false} />
             <p>Email: </p> <input type="text" name='email' value={updatedUser.email} onChange={handleInputChange} readOnly={false} />
             <div className="button-wrapper">
@@ -90,8 +97,10 @@ const User = ({ user, hasUncompletedTasks, setIsSelectedUserId, setSelectedUserI
                     </div>
                 )}
             </div>
-            <button onClick={handleUpdateUser}>Update</button>
-            <button onClick={handleDeleteUser}>Delete</button>
+            <div className='buttonsContainer'>
+                <button onClick={handleUpdateUser}>Update</button>
+                <button onClick={handleDeleteUser}>Delete</button>
+            </div>
         </div>
     );
 };

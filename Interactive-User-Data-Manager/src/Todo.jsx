@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 const Todo = ({ title, completed, id }) => {
     const { markTodoAsCompleted } = Utils();
-    const [complete, setCompleted] = useState(completed);
+    const [isComplete, setCompleted] = useState(completed);
     const [todoStyle, setTodoStyle] = useState({
         border: '1px solid rgb(207, 207, 207)',
         padding: '10px',
@@ -26,7 +26,7 @@ const Todo = ({ title, completed, id }) => {
     return (
         <div style={todoStyle}>
             <h3>{title}</h3>
-            {!complete && <button onClick={handleComplete}>Mark Completed</button>}
+            {!isComplete && <button onClick={handleComplete}>Mark Completed</button>}
         </div>
     );
 };

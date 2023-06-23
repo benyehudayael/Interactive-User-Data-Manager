@@ -36,10 +36,13 @@ const AddUserForm = ({ handleCancelAddUser }) => {
                     required
                 />
                 <br /><br />
-                <button type="submit">Submit</button>
-                <button type="button" onClick={handleCancelAddUser}>
-                    Cancel
-                </button>
+                <div className='buttonsContainer'>
+                    <button type="submit">Submit</button>
+                    <button type="button" onClick={handleCancelAddUser}>
+                        Cancel
+                    </button>
+                </div>
+
             </form>
         </div>
     );

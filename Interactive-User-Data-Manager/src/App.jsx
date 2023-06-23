@@ -3,18 +3,13 @@ import { StateContext } from './StateContext';
 import React, { useContext } from 'react';
 import Utils from './Utils';
 import User from './User';
-import Post from './Post';
-import Todo from './Todo';
 import './App.scss'
-import AddTodoForm from './AddTodoForm'
-import AddPostForm from './AddPostForm'
 import AddUserForm from './AddUserForm';
+import { UserPosts, UserTasks } from './UserSections';
 
 function App() {
   const { fetchInitialData } = Utils();
-  const { users, setUsers } = useContext(StateContext);
-  const { todos, setTodos } = useContext(StateContext);
-  const { posts, setPosts } = useContext(StateContext);
+  const { users, setUsers, todos, setTodos, posts, setPosts } = useContext(StateContext);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [uncompletedTasksUsers, setUncompletedTasksUsers] = useState([]);
   const [searchText, setSearchText] = useState('');
@@ -58,7 +53,7 @@ function App() {
   };
 
   return (
-    <>
+    <React.Fragment>
       <div className="container">
         <div className="search-wrapper">
           <input className="search-input" type="text" value={searchText} name='serach' onChange={handleSearchChange} placeholder="Search" />
@@ -74,68 +69,47 @@ function App() {
       </div>
 
       <div className="container content">
-        <div className='whiteBg'>
-          {filteredUsers.map((user) => (
+        <div className='background-white'>
+          {filteredUsers.map((user, index) => (
             <User
               key={user.id}
               user={user}
-              hasUncompletedTasks={uncompletedTasksUsers.includes(user.id)}
+              uncompletedTasksUsers={uncompletedTasksUsers}
               setIsSelectedUserId={setIsSelectedUserId}
               selectedUserId={selectedUserId}
               setSelectedUserId={setSelectedUserId}
               setShowAddUserForm={setShowAddUserForm}
+              className={`user-${index}`}
             />
           ))}
         </div>
         {showAddUserForm ? (
-          <div className="user-info whiteBg">
+          <div className="user-details background-white">
             <AddUserForm handleCancelAddUser={handleCancelAddUser} />
           </div>
         ) : (
           <>
             {isSelectedUserId && (
               <div>
-                <div className="user-info whiteBg">
-                  <h1>Posts: User {selectedUserId}</h1>
-                  {postMode === 'list' ? (
-                    <div className="post-list">
-                      <button onClick={() => setPostMode('add')}>Add</button>
-                      {posts
-                        .filter((post) => post.userId === selectedUserId)
-                        .map((post) => (
-                          <Post key={post.id} title={post.title} body={post.body} />
-                        ))}
-                    </div>
-                  ) : (
-                    <div className="add-form">
-                      <AddPostForm setMode={setPostMode} userId={selectedUserId} />
-                    </div>
-                  )}
-                </div>
-                <div className="user-info whiteBg">
-                  <h1>Tasks: User {selectedUserId}</h1>
-                  {todoMode === 'list' ? (
-                    <div className="todo-list">
-                      <button onClick={() => setTodoMode('add')}>Add</button>
-                      {todos
-                        .filter((todo) => todo.userId === selectedUserId)
-                        .map((todo) => (
-                          <Todo key={todo.id} id={todo.id} title={todo.title} completed={todo.completed} />
-                        ))}
-                    </div>
-                  ) : (
-                    <div className="add-form">
-                      <AddTodoForm setMode={setTodoMode} userId={selectedUserId} />
-                    </div>
-                  )}
-                </div>
+                <UserPosts
+                  posts={posts}
+                  selectedUserId={selectedUserId}
+                  postMode={postMode}
+                  setPostMode={setPostMode}
+                />
+                <UserTasks
+                  todos={todos}
+                  selectedUserId={selectedUserId}
+                  todoMode={todoMode}
+                  setTodoMode={setTodoMode}
+                />
               </div>
             )}
           </>
         )}
       </div>
 
-    </>
+    </React.Fragment>
   )
 }
 
