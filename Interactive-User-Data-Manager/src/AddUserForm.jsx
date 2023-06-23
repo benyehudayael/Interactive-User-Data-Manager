@@ -35,7 +35,7 @@ const AddUserForm = ({ handleCancelAddUser }) => {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                 />
-                <br />
+                <br /><br />
                 <button type="submit">Submit</button>
                 <button type="button" onClick={handleCancelAddUser}>
                     Cancel

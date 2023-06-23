@@ -6,15 +6,16 @@ const Todo = ({ title, completed, id }) => {
     const { markTodoAsCompleted } = Utils();
     const [complete, setCompleted] = useState(completed);
     const [todoStyle, setTodoStyle] = useState({
-        border: '1px solid black',
+        border: '1px solid rgb(207, 207, 207)',
         padding: '10px',
         margin: '10px',
-        backgroundColor: completed ? 'lightgreen' : 'inherit',
+        boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px',
+        backgroundColor: completed ? '#00ff001f' : 'inherit',
     });
     useEffect(() => {
         setTodoStyle((prevUserStyle) => ({
             ...prevUserStyle,
-            backgroundColor: completed ? 'lightgreen' : 'inherit',
+            backgroundColor: completed ? '#00ff001f' : 'inherit',
         }));
     }, [completed]);
 

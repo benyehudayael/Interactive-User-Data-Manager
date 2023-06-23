@@ -5,7 +5,7 @@ import Utils from './Utils';
 import User from './User';
 import Post from './Post';
 import Todo from './Todo';
-import './App.css'
+import './App.scss'
 import AddTodoForm from './AddTodoForm'
 import AddPostForm from './AddPostForm'
 import AddUserForm from './AddUserForm';
@@ -59,10 +59,22 @@ function App() {
 
   return (
     <>
-      <input type="text" value={searchText} name='serach' onChange={handleSearchChange} placeholder="Search" />
-      <button onClick={handleShowAddUserForm} disabled={showAddUserForm}>Add</button>
-      <div className='container'>
-        <div>
+      <div className="container">
+        <div className="search-wrapper">
+          <input className="search-input" type="text" value={searchText} name='serach' onChange={handleSearchChange} placeholder="Search" />
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="feather feather-search" viewBox="0 0 24 24">
+            <defs></defs>
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="M21 21l-4.35-4.35"></path>
+          </svg>
+        </div>
+        <div className="button-wrapper">
+          <button onClick={handleShowAddUserForm} disabled={showAddUserForm}>Add</button>
+        </div>
+      </div>
+
+      <div className="container content">
+        <div className='whiteBg'>
           {filteredUsers.map((user) => (
             <User
               key={user.id}
@@ -76,48 +88,53 @@ function App() {
           ))}
         </div>
         {showAddUserForm ? (
-          <AddUserForm handleCancelAddUser={handleCancelAddUser} />
-        ) : (<div className="user-info">
-          {isSelectedUserId && (
-            <>
+          <div className="user-info whiteBg">
+            <AddUserForm handleCancelAddUser={handleCancelAddUser} />
+          </div>
+        ) : (
+          <>
+            {isSelectedUserId && (
               <div>
-                <h1>Posts: User {selectedUserId}</h1>
-                {postMode === 'list' ? (
-                  <div className="post-list">
-                    <button onClick={() => setPostMode('add')}>Add</button>
-                    {posts
-                      .filter((post) => post.userId === selectedUserId)
-                      .map((post) => (
-                        <Post key={post.id} title={post.title} body={post.body} />
-                      ))}
-                  </div>
-                ) : (
-                  <div className="add-form">
-                    <AddPostForm setMode={setPostMode} userId={selectedUserId} />
-                  </div>
-                )}
+                <div className="user-info whiteBg">
+                  <h1>Posts: User {selectedUserId}</h1>
+                  {postMode === 'list' ? (
+                    <div className="post-list">
+                      <button onClick={() => setPostMode('add')}>Add</button>
+                      {posts
+                        .filter((post) => post.userId === selectedUserId)
+                        .map((post) => (
+                          <Post key={post.id} title={post.title} body={post.body} />
+                        ))}
+                    </div>
+                  ) : (
+                    <div className="add-form">
+                      <AddPostForm setMode={setPostMode} userId={selectedUserId} />
+                    </div>
+                  )}
+                </div>
+                <div className="user-info whiteBg">
+                  <h1>Tasks: User {selectedUserId}</h1>
+                  {todoMode === 'list' ? (
+                    <div className="todo-list">
+                      <button onClick={() => setTodoMode('add')}>Add</button>
+                      {todos
+                        .filter((todo) => todo.userId === selectedUserId)
+                        .map((todo) => (
+                          <Todo key={todo.id} id={todo.id} title={todo.title} completed={todo.completed} />
+                        ))}
+                    </div>
+                  ) : (
+                    <div className="add-form">
+                      <AddTodoForm setMode={setTodoMode} userId={selectedUserId} />
+                    </div>
+                  )}
+                </div>
               </div>
-              <div>
-                <h1>Tasks: User {selectedUserId}</h1>
-                {todoMode === 'list' ? (
-                  <div className="todo-list">
-                    <button onClick={() => setTodoMode('add')}>Add</button>
-                    {todos
-                      .filter((todo) => todo.userId === selectedUserId)
-                      .map((todo) => (
-                        <Todo key={todo.id} id={todo.id} title={todo.title} completed={todo.completed} />
-                      ))}
-                  </div>
-                ) : (
-                  <div className="add-form">
-                    <AddTodoForm setMode={setTodoMode} userId={selectedUserId} />
-                  </div>
-                )}
-              </div>
-            </>
-          )}
-        </div>)}
+            )}
+          </>
+        )}
       </div>
+
     </>
   )
 }

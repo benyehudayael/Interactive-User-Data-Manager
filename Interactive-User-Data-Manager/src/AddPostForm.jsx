@@ -32,7 +32,7 @@ const AddPostForm = ({ setMode, userId }) => {
                 onChange={(e) => setBody(e.target.value)}
                 placeholder="Enter todo body"
                 required
-            />
+            /><br /> <br />
             <button type="submit">Add</button>
             <button onClick={() => setMode('list')}>Cancel</button>
         </form>
