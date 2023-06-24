@@ -57,22 +57,10 @@
   --more-list-shadow: rgba(195, 207, 244, 0.1);
   --message-btn: rgba(195, 207, 244, 0.1);
 }
-$base-color: #f00; 
 .container {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-
-  & + & {
-    margin-top: 20px;
-  }
-  @for $i from 0 to 100 {
-    .user-#{$i} {
-      p{
-        background-color: mix($base-color, #000, $i / 100); // Example background color with varying mix
-    }
-       }
-  }
 }
 .search-wrapper {
   margin: 10px;
@@ -133,7 +121,6 @@ $base-color: #f00;
 }
 .content{
   input{
-  
     box-sizing: border-box;
     font-family: inherit;
     font-size: 14px;
@@ -151,12 +138,11 @@ $base-color: #f00;
     background-color: #f4f4f4;
     padding: 0 16px;
     color: #161616;
-    transition: background-color 70ms cubic-bezier(.2,0,.38,.9),outline 70ms cubic-bezier(.2,0,.38,.9);  
-    :focus{
-        outline: 2px solid #0f62fe;
-        outline-offset: -2px;
-    }
-  
+    transition: background-color 70ms cubic-bezier(.2,0,.38,.9),outline 70ms cubic-bezier(.2,0,.38,.9); 
+  }
+  input:focus {
+    outline: none; 
+    box-shadow: inset  0 0 0 0.1rem rgb(159 159 159 / 30%);
   }
 }
 
@@ -165,52 +151,11 @@ $base-color: #f00;
 }
 
 .user-details {
-
   h1 {
     font-size: 24px;
     margin-bottom: 10px;
   }
-
-  // .post-list,
-  // .todo-list {
-  //   margin-top: 10px;
-
-  //   button {
-  //     padding: 5px 10px;
-  //     border: none;
-  //     border-radius: 5px;
-  //     background-color: #007bff;
-  //     color: #fff;
-  //     font-size: 14px;
-  //     margin-bottom: 10px;
-  //     cursor: pointer;
-
-  //     &:hover {
-  //       background-color: #0056b3;
-  //     }
-  //   }
-  // }
-
-  // .add-form {
-  //   margin: 1rem;
-
-  
-
-    // button {
-    //   padding: 10px 20px;
-    //   border: none;
-    //   border-radius: 5px;
-    //   background-color: #007bff;
-    //   color: #fff;
-    //   font-size: 16px;
-    //   cursor: pointer;
-
-    //   &:hover {
-    //     background-color: #0056b3;
-    //   }
-   // }
-  }
-//}
+}
 .search-input {
   border: none;
   flex: 1;
@@ -228,7 +173,7 @@ $base-color: #f00;
 }
 
 .other-data {
-  border: 1px solid;
+  border: 2px solid #8d8d8d;
   padding: 10px;
   margin: 10px;
   opacity: 0;
@@ -293,7 +238,9 @@ button {
   width: 201px;
   margin: auto;
 }
-
+.button-wrapper button:hover {
+  
+}
 button:focus,
 button:focus-visible {
   outline: 4px auto var(--more-list-shadow);
@@ -311,5 +258,8 @@ button:focus-visible {
 
   button {
     background-color: #f4f4f4;
+  }
+  button:hover{
+    background-color: var(--link-color-hover);
   }
 }
