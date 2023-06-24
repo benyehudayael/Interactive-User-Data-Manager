@@ -64,7 +64,7 @@ const Utils = () => {
             completed: false,
         };
 
-        setTodos((prevTodos) => [...prevTodos, newTodo]);
+        setTodos((prevTodos) => [newTodo, ...prevTodos]);
     }
 
     const addPost = (userId, title, body) => {
@@ -75,7 +75,7 @@ const Utils = () => {
             body: body,
         };
 
-        setPosts((prevPosts) => [...prevPosts, newPost]);
+        setPosts((prevPosts) => [newPost, ...prevPosts]);
     }
 
     const addUser = (name, email) => {
@@ -97,9 +97,10 @@ const Utils = () => {
             id: users.length + 1,
             name: name,
             email: email,
+            address: { street: '', city: '', zipcode: '' },
         };
 
-        setUsers((prevUsers) => [...prevUsers, newUser]);
+        setUsers((prevUsers) => [newUser, ...prevUsers]);
     }
     return { fetchInitialData, updateUser, deleteUser, markTodoAsCompleted, addTodo, addPost, addUser };
 };

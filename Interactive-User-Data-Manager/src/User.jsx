@@ -15,7 +15,7 @@ const User = ({ user, uncompletedTasksUsers, setIsSelectedUserId, setSelectedUse
         margin: '10px',
         width: '370px',
         boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px',
-        backgroundColor: orangeBg && selectedUserId == user.id ? '#fee4cb' : 'inherit',
+        backgroundColor: orangeBg && selectedUserId == user.id ? 'rgb(255 125 0 / 12%)' : 'inherit',
     });
 
     useEffect(() => {
@@ -28,7 +28,7 @@ const User = ({ user, uncompletedTasksUsers, setIsSelectedUserId, setSelectedUse
     useEffect(() => {
         setUserStyle((prevUserStyle) => ({
             ...prevUserStyle,
-            backgroundColor: orangeBg && selectedUserId === user.id ? '#fee4cb' : 'inherit',
+            backgroundColor: orangeBg && selectedUserId === user.id ? 'rgb(255 125 0 / 12%)' : 'inherit',
         }));
     }, [selectedUserId]);
 
@@ -46,7 +46,7 @@ const User = ({ user, uncompletedTasksUsers, setIsSelectedUserId, setSelectedUse
     const handleMouseOver = () => setShowOtherData(true);
     const closeMoreData = () => setShowOtherData(false);
     const handleUpdateUser = async () => {
-        const { name, email, address } = updatedUser;
+        const { name, email, address = { street, city, zipcode } } = updatedUser;
         const updatedData = {};
 
         if (name !== '') { updatedData.name = name; }
