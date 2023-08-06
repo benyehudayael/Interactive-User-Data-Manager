@@ -37,9 +37,9 @@ const AddUserForm = ({ handleCancelAddUser }) => {
                 />
                 <br /><br />
                 <div className='buttonsContainer'>
-                    <button type="submit">Submit</button>
+                    <button type="submit">Add</button>
                     <button type="button" onClick={handleCancelAddUser}>
-                        Cancel
+                        Abort
                     </button>
                 </div>
 

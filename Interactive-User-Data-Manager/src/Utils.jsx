@@ -74,7 +74,6 @@ const Utils = () => {
             title: title,
             body: body,
         };
-
         setPosts((prevPosts) => [newPost, ...prevPosts]);
     }
 
@@ -87,7 +86,6 @@ const Utils = () => {
             return;
         }
         const isEmailExists = users.some((user) => user.email === email);
-
         if (isEmailExists) {
             console.log('Email already exists');
             alert('Email already exists')
@@ -99,10 +97,8 @@ const Utils = () => {
             email: email,
             address: { street: '', city: '', zipcode: '' },
         };
-
         setUsers((prevUsers) => [newUser, ...prevUsers]);
     }
     return { fetchInitialData, updateUser, deleteUser, markTodoAsCompleted, addTodo, addPost, addUser };
 };
-
 export default Utils;
